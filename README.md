@@ -26,3 +26,6 @@ $ ./download-website.sh <website> <domain>
 ```
 $ ./download-website.sh http://www.website.org website.org
 ```
+
+## Get Weather
+You can get current weather of specified city using [Open Weather Map](https://openweathermap.org/) API. For get done you'll probaby need to update `KEY` and `CITY` in script. Also you need to install [jq](https://stedolan.github.io/jq/) and [Font Awesome](https://fontawesome.com/) as dependencies. This tool is primarily created for [Polybar](https://github.com/polybar/polybar). All credits mus go to, [https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/openweathermap-detailed](https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/openweathermap-detailed). For usage refer [How to add custom script to Polybar](https://github.com/polybar/polybar/wiki/Module:-script).
