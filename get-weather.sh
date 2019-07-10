@@ -39,4 +39,4 @@ WEATHER_ICON=$(echo $WEATHER | jq -r ".weather[0].icon")
 WEATHER_TEMP=$(echo $WEATHER | jq -r ".main.temp")
 
 # Return weather
-echo $(get_icon $WEATHER_ICON) $WEATHER_MAIN $WEATHER_TEMP$SYMBOL
+echo "$(get_icon $WEATHER_ICON) $WEATHER_MAIN $WEATHER_TEMP$SYMBOL"

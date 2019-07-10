@@ -5,6 +5,7 @@
 # Check if website and domain is not specified
 if [[ -z $@ ]]; then
     echo "You should specified website and domain";
+
     exit;
 fi
 

@@ -14,6 +14,7 @@ RESOLUTION=$@;
 # Check if resolution is not valid
 if [[ $(($(echo $RESOLUTION | grep -o "\s" | wc --chars) / 2 )) -ne 2 ]]; then
     echo "Invalid resolution";
+
     exit;
 fi
 
@@ -21,9 +22,8 @@ fi
 MOD_NAME=$(echo $RESOLUTION | sed 's/\s/_/g');
 DISPLAY_NAME=$(xrandr | grep -Po '.+(?=\sconnected)');
 
-# Check if mod not available
+# If mod not available add new mod
 if [[ $(xrandr|grep $MOD_NAME) = "" ]]; then
-    # Add new mode
     xrandr --newmode $MOD_NAME $(gtf $(echo $RESOLUTION) | grep -oP '(?<="\s\s).+') && xrandr --addmode $DISPLAY_NAME $MOD_NAME;
 fi
 
