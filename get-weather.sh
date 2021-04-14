@@ -1,26 +1,25 @@
 #!/bin/env bash
-
 # Original source - https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/openweathermap-detailed
 
 get_icon() {
-    case $1 in
-        01d) ICON="";;
-        01n) ICON="";;
-        #02d) ICON="";; # This was commented because of below icon
-        #02n) ICON="";; # This icon not working correctly
-        02d) ICON="";;
-        02n) ICON="";;
-        03*) ICON="";;
-        04*) ICON="";;
-        09*) ICON="";;
-        10d) ICON="";;
-        10n) ICON="";;
-        11*) ICON="";;
-        13*) ICON="";;
-        50*) ICON="";;
-        *) ICON="";
-    esac
-    echo $ICON
+  case $1 in
+    01d) ICON="";;
+    01n) ICON="";;
+    #02d) ICON="";; # This was commented because of below icon
+    #02n) ICON="";; # This icon not working correctly
+    02d) ICON="";;
+    02n) ICON="";;
+    03*) ICON="";;
+    04*) ICON="";;
+    09*) ICON="";;
+    10d) ICON="";;
+    10n) ICON="";;
+    11*) ICON="";;
+    13*) ICON="";;
+    50*) ICON="";;
+    *) ICON="";
+  esac
+  echo $ICON
 }
 
 # Global settings

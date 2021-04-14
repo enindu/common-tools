@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
-
 # Original source - https://www.linuxjournal.com/content/downloading-entire-web-site-wget
 
 # Check if website and domain is not specified
 if [[ -z $@ ]]; then
-    echo "You should specified website and domain";
-
-    exit;
+  echo "You should specified website and domain";
+  exit;
 fi
 
 # Get website and domain
@@ -18,5 +16,5 @@ wget --recursive --no-clobber --page-requisites --html-extension --convert-links
 
 # Check if there're no errors
 if [[ $? -eq 0 ]]; then
-    echo "Website downloaded successfully";
+  echo "Website downloaded successfully";
 fi
