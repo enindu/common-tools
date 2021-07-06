@@ -1,20 +1,29 @@
-#!/usr/bin/env bash
-# Original source - https://www.linuxjournal.com/content/downloading-entire-web-site-wget
+#!/bin/bash
 
-# Check if website and domain is not specified
-if [[ -z $@ ]]; then
-  echo "You should specified website and domain";
-  exit;
+# Source: https://www.linuxjournal.com/content/downloading-entire-web-site-wget
+# Dependencies: wget
+
+if [[ -z $1 ]] || [[ -z $2 ]]
+then
+    echo "Usage:   sh download-website.sh <url> <domain>"
+    echo "Example: sh download-website.sh https://enindu.com enindu.com"
+    exit
 fi
 
-# Get website and domain
-WEBSITE=$1;
-DOMAIN=$2;
+wget \
+    --recursive \
+    --page-requisites \
+    --html-extension \
+    --convert-links \
+    --no-parent \
+    --restrict-file-names=windows \
+    --domains=$2 \
+    $1
 
-# Download entire website on current directory
-wget --recursive --no-clobber --page-requisites --html-extension --convert-links --restrict-file-names=windows --domains=$DOMAIN --no-parent $WEBSITE;
-
-# Check if there're no errors
-if [[ $? -eq 0 ]]; then
-  echo "Website downloaded successfully";
+if [[ $? -ne 0 ]]
+then
+    echo "Error: Something went wrong"
+    exit
 fi
+
+echo "Success: Website downloaded successfully"

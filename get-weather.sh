@@ -1,41 +1,15 @@
-#!/bin/env bash
-# Original source - https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/openweathermap-detailed
+#!/bin/bash
 
-get_icon() {
-  case $1 in
-    01d) ICON="";;
-    01n) ICON="";;
-    #02d) ICON="";; # This was commented because of below icon
-    #02n) ICON="";; # This icon not working correctly
-    02d) ICON="";;
-    02n) ICON="";;
-    03*) ICON="";;
-    04*) ICON="";;
-    09*) ICON="";;
-    10d) ICON="";;
-    10n) ICON="";;
-    11*) ICON="";;
-    13*) ICON="";;
-    50*) ICON="";;
-    *) ICON="";
-  esac
-  echo $ICON
-}
+# Source: https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/openweathermap-detailed
+# Dependencies: curl
+#               jq
 
-# Global settings
-KEY=""
-CITY=""
-UNITS="metric"
-SYMBOL="°C"
-API="https://api.openweathermap.org/data/2.5"
+key=""
+city=""
 
-# Get weather
-WEATHER=$(curl -sf "$API/weather?APPID=$KEY&q=$CITY&units=$UNITS")
+response=$(curl -sf "https://api.openweathermap.org/data/2.5/weather?appid=$key&q=$city&units=metric")
 
-# Get condition, icon and temp
-WEATHER_MAIN=$(echo $WEATHER | jq -r ".weather[0].main")
-WEATHER_ICON=$(echo $WEATHER | jq -r ".weather[0].icon")
-WEATHER_TEMP=$(echo $WEATHER | jq -r ".main.temp")
+weather=$(echo $response | jq -r ".weather[0].main")
+temperature=$(echo $response | jq -r ".main.temp")
 
-# Return weather
-echo "$(get_icon $WEATHER_ICON) $WEATHER_MAIN $WEATHER_TEMP$SYMBOL"
+echo "$weather $temperature °C"

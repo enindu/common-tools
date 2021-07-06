@@ -1,34 +1,35 @@
-#!/usr/bin/env bash
-# Original source - https://gist.github.com/chirag64/7853413
+#!/bin/bash
 
-# Check if resolution is not specified
-if [[ -z $@ ]]; then
-  echo "You should specified resolution";
-  exit;
+# Source: https://gist.github.com/chirag64/7853413
+# Dependencies: grep
+#               sed
+#               xorg-server
+#               xorg-xrandr
+
+if [[ -z $@ ]]
+then
+    echo "Usage:   sh change-resolution.sh <width> <height> <refresh rate>"
+    echo "Example: sh change-resolution.sh 1920 1080 60"
+    exit
 fi
 
-# Get resolution
-RESOLUTION=$@;
+mod=$(echo $@ | sed "s/\s/_/g")
+screen=$(xrandr | grep -Po ".+(?=\sconnected)")
 
-# Check if resolution is not valid
-if [[ $(($(echo $RESOLUTION | grep -o "\s" | wc --chars) / 2 )) -ne 2 ]]; then
-  echo "Invalid resolution";
-  exit;
+if [[ $(xrandr | grep $mod) = "" ]]
+then
+    xrandr --newmode $mod $(gtf $@ | grep -Po "(?<=\"\s\s).+")
+    xrandr --addmode $screen $mod
 fi
 
-# Get mod name and display name
-MOD_NAME=$(echo $RESOLUTION | sed 's/\s/_/g');
-DISPLAY_NAME=$(xrandr | grep -Po '.+(?=\sconnected)');
+xrandr \
+    --output $screen \
+    --mode $mod
 
-# If mod not available add new mod
-if [[ $(xrandr|grep $MOD_NAME) = "" ]]; then
-  xrandr --newmode $MOD_NAME $(gtf $(echo $RESOLUTION) | grep -oP '(?<="\s\s).+') && xrandr --addmode $DISPLAY_NAME $MOD_NAME;
+if [[ $? -ne 0 ]] 
+then
+    echo "Error: Something went wrong"
+    exit
 fi
 
-# Change resolution
-xrandr --output $DISPLAY_NAME --mode $MOD_NAME;
-
-# Check if there're no errors
-if [[ $? -eq 0 ]]; then
-  echo "Resolution changed successfully";
-fi
+echo "Success: Resolution changed successfully"
