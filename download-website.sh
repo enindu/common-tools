@@ -17,6 +17,7 @@ wget \
     --convert-links \
     --no-parent \
     --restrict-file-names=windows \
+    --execute="robots=off" \
     --domains=$2 \
     $1
 
