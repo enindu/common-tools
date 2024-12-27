@@ -16,9 +16,9 @@ wget \
     --html-extension \
     --convert-links \
     --no-parent \
-    --restrict-file-names=windows \
+    --restrict-file-names="windows" \
     --execute="robots=off" \
-    --domains=$2 \
+    --domains="$2" \
     $1
 
 if [[ $? -ne 0 ]]
